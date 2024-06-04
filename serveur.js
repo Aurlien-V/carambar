@@ -1,16 +1,15 @@
-
 const express = require("express");
 const cors = require("cors");
-const connexion = require("../carambar/src/db/database.js");
+const connexion = require("./db/dbconnect");
 const app = express();
 const port = 3000;
 const version = "v1";
-const router = require("../carambar/src/index.js");
+const router = require("./routes/routes");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const options = require("./swagger.json");
 const specs = swaggerJsdoc(options);
-const Blague = require("../carambar/src/Blagues");
+const Blague = require("./models/Blague");
 const { SELECT } = require("sequelize/lib/query-types");
 
 app.use(cors());
