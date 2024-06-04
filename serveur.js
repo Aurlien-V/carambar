@@ -9,6 +9,7 @@ const app = express();
 const db = require('./db/dbconfig');
 
 //Pour utilisé le json via d'autre domaine
+
 app.use(CORS());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
