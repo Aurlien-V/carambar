@@ -234,7 +234,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon serveur.js"
+    "dev": "nodemon serveur.js",
+    "start": "node serveur.js"
   },
   "repository": {
     "type": "git",
