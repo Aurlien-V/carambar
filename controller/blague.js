@@ -1,4 +1,4 @@
-const Blague = require("../models/Blague.js");
+const Blague = require(".\models\Blague.js");
 
 const controllerBlague = {
   find: async (req, res) => {
