@@ -1,10 +1,22 @@
+
 const express = require('express');
-const { getAllJokesHandler, getJokeByIdHandler, getRandomJokeHandler, addJokeHandler } = require('../controllers/jokeController');
+const controllerBlagues = require('../controllers');
+
 const router = express.Router();
 
-router.get('/jokes', getAllJokesHandler);
-router.get('/jokes/:id', getJokeByIdHandler);
-router.get('/jokes/random', getRandomJokeHandler);
-router.post('/jokes', addJokeHandler); 
+
+router.get('/', (req, res) => {
+    res.status(200).json({ success: 'RACINE API' });
+});
+
+router.get('/test', (req, res) => {
+    res.status(200).json({ message: 'test' });
+});
+
+router.get('/random',controllerBlagues.random );
+
+router.get('/Blagues', controllerBlagues.findAll);
+router.post('/Blagues', controllerBlagues.create);
+router.get('/Blagues/:id', controllerBlagues.findById);
 
 module.exports = router;

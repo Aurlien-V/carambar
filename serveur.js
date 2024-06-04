@@ -1,22 +1,16 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
 const router = require('../carambar/src/routes/index');
-const sqlite3 = require('sqlite3').verbose();
-const fs = require('fs');
-const cors = require('cors');
-
-// Configuration de la base de données
-const db = new sqlite3.Database('../carambar/src/db/jokes.db');
-
+const version = "v1"
+const db = require('../carambar/src/db/database');
+const cors = require("cors");
+ 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
-
-
-  app.use(`/api/${version}`, router);
-
+app.use(`/api/${version}`, router);
 
 
 
@@ -26,4 +20,3 @@ db.sync().then(() => {
       console.log(`Example app listening at http://localhost:${port}`);
     });
   })
-  
