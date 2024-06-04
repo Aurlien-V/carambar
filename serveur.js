@@ -1,30 +1,26 @@
-const express = require("express");
-const cors = require("cors");
-const connexion = require("./db/dbconnect");
-const app = express();
+const express = require('express');
+const CORS = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const port = 3000;
-const version = "v1";
-const router = require("./routes/routes");
-const swaggerUi = require("swagger-ui-express");
-const swaggerJsdoc = require("swagger-jsdoc");
-const options = require("./swagger.json");
-const specs = swaggerJsdoc(options);
-const Blague = require("./models/Blague");
-const { SELECT } = require("sequelize/lib/query-types");
+const version = 'v1';
+const router = require('./routes/routes');
+const app = express();
+const db = require('./db/dbconfig');
 
-app.use(cors());
+//Pour utilisé le json via d'autre domaine
+app.use(CORS());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(`/examapi/${version}`, router);
-app.use(
-  `/examapi/${version}/api-docs`,
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true })
-);
 
-connexion.sync().then(() => {
-  console.log("DBconnect est synchronisé");
-  app.listen(port, () => {
-    console.log("Example app listening on port ${port}");
-  });
+app.use(`/api/${version}`, router);
+
+// Middleware pour la documentation
+app.use(`/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
+db.sync().then(() => {
+    app.listen(port, () => {
+        console.log(`Server started ...`);
+    });
 });
